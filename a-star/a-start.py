@@ -78,9 +78,8 @@ def astar(maze, start, end):
         for child in children:
 
             # Child is on the closed list
-            for closed_child in closed_list:
-                if child == closed_child:
-                    continue
+            if child in closed_list:
+                continue
 
             # Create the f, g, and h values
             child.g = current_node.g + 1
@@ -88,8 +87,11 @@ def astar(maze, start, end):
             child.f = child.g + child.h
 
             # Child is already in the open list
+            temp_list = []
             for open_node in open_list:
-                if child == open_node and child.g > open_node.g:
+                if child.g > open_node.g:
+                    temp_list.append(open_node)
+            if child in temp_list:
                     continue
 
             # Add the child to the open list
